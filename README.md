@@ -84,7 +84,7 @@ containers to fail.
     chown -Rv dhcpd:dhcpd /srv/containers/dhcpd-bind9/etc/dhcpd
 
     chown -Rv bind:bind \
-      /srv/containers/dhcpd-bind9/etc/bind9
+      /srv/containers/dhcpd-bind9/etc/bind9 \
       /srv/containers/dhcpd-bind9/var
     ```
 1. Copy the rsyslog file from the project and restart `rsyslog`.
