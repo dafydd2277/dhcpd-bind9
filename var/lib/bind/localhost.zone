@@ -1,0 +1,13 @@
+$TTL	24H
+$ORIGIN localhost.
+; line below = localhost 1D IN SOA localhost root.localhost
+@  1D  IN	 SOA @	root (
+			      42 ; serial (d. adams)
+			      3H ; refresh
+			      15 ; retry
+			      1w ; expire
+			      3h ; minimum
+			     )
+   1D  IN  NS @ 
+   1D  IN  A  127.0.0.1   
+

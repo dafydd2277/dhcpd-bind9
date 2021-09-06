@@ -1,0 +1,14 @@
+$ORIGIN .
+$TTL 86400  ; 1 day
+FIXME_internal.example.com    IN SOA  FIXME_ns.internal.example.com. FIXME_ns.internal.example.dafydd.com. (
+                          2021082001 ; serial YYYYMMDDNN (FIXME to current date)
+                          1H          ; refresh (1 hour)
+                          30M         ; retry (30 minutes)
+                          1W          ; expire (1 week)
+                          30M )       ; minimum (30 minutes)
+                     NS  FIXME_ns.internal.example.com.
+;
+$ORIGIN FIXME_internal.example.com.
+FIXME_gateway        A  192.168.1.1
+FIXME_ns             A  192.168.1.2
+

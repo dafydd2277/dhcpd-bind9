@@ -1,0 +1,14 @@
+$ORIGIN 0.168.192.in-addr.arpa.
+$TTL  86400
+@ IN  SOA FIXME_ns.internal.example.com. root.FIXME_ns.internal.example.com. (
+          2021082001  ; serial yyyymmddnn (FIXME to current date)
+          1H          ; Refresh
+          30M         ; Retry
+          1W          ; Expire
+          30M )       ; Minimum
+;
+@   NS    FIXME_ns.internal.example.com.
+;
+1   PTR   FIXME_gateway.internal.example.com.
+2   PTR   FIXME_ns.internal.example.com.
+

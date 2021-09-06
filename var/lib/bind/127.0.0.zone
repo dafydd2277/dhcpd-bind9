@@ -1,0 +1,12 @@
+$ORIGIN 0.0.127.in-addr.arpa.
+$TTL  86400
+@ IN  SOA localhost root.localhost (
+      42   ; serial (d. adams)
+      3H   ; Refresh
+      15M  ; Retry
+      1W   ; Expire
+      3H ) ; Minimum
+;
+    IN  NS  @
+1   IN  PTR localhost.localdomain.
+

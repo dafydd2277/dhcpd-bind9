@@ -1,0 +1,56 @@
+services:
+  dhcpd:
+    image: dafydd2277/dhcpd:latest
+    environment:
+      DHCPD_PROTOCOL: ${i_dhcp_protocol}
+    logging:
+      driver: syslog
+      options:
+        tag: cnt-{{.Name}}
+        syslog-address: ${s_syslog_connection_type}://${s_syslog_ip}:${i_syslog_port}
+        syslog-facility: daemon
+    networks:
+      - dhcpd-bind9
+    ports:
+#      - 67:67/udp                       # Listen on all interfaces.
+#      - ${s_host_internal_ip}:67:67/udp # Listen on specific interfaces only.
+    volumes:
+      - type: bind
+        source: ./etc/dhcpd
+        target: /data
+    working_dir: /data
+  bind:
+    image: store/internetsystemsconsortium/bind9:9.16
+    logging:
+      driver: syslog
+      options:
+        tag: cnt-{{.Name}}
+        syslog-address: ${s_syslog_connection_type}://${s_syslog_ip}:${i_syslog_port}
+        syslog-facility: daemon
+    networks:
+      - dhcpd-bind9
+    ports:
+#      - 53:53/tcp
+#      - 53:53/udp
+#      - 953:953/tcp
+#      - ${s_host_internal_ip}:53:53/tcp
+#      - ${s_host_internal_ip}:53:53/udp
+#      - ${s_host_internal_ip}:953:953/tcp
+    volumes:
+      - type: bind
+        source: ./etc/bind
+        target: /etc/bind
+      - type: bind
+        source: ./var/cache/bind
+        target: /var/cache/bind
+      - type: bind
+        source: ./var/lib/bind
+        target: /var/lib/bind
+
+networks:
+ dhcpd-bind9:
+  ipam:
+    driver: default
+    config:
+      - subnet: "172.250.0.0/29"
+
