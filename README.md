@@ -1,4 +1,4 @@
-# Plug and Play DNS Container
+# Plug and Play DHCPD + BIND9 Containers
 
 This is a mostly Plug-and-Play combined installation of
 [DHCPD][ref001] and [BIND9][ref002] containers, using
