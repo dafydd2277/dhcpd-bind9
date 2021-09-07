@@ -1,0 +1,18 @@
+# /etc/systemd/system/cnt-dhcpd-bind.service
+
+[Unit]
+Description=Docker Compose DHCPD and BIND9
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/containers/dhcpd-bind9
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+
