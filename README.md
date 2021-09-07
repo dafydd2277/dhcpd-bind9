@@ -59,7 +59,7 @@ containers to fail.
     useradd \
       --comment "User for dhcpd container" \
       --gid 101 \
-      --home-dir /srv/containers/dhcpd \
+      --home-dir /srv/containers/dhcpd-bind9/etc/dhcp \
       --no-create-home \
       --no-user-group \
       --shell /bin/true \
@@ -70,7 +70,7 @@ containers to fail.
     useradd \
       --comment "User for bind container" \
       --gid 106 \
-      --home-dir /srv/containers/bind9 \
+      --home-dir /srv/containers/dhcpd-bind9/etc/bind \
       --no-create-home \
       --no-user-group \
       --shell /bin/true \
@@ -81,7 +81,7 @@ containers to fail.
 
     chage -E 0 bind
     
-    chown -Rv dhcpd:dhcpd /srv/containers/dhcpd-bind9/etc/dhcpd
+    chown -Rv dhcpd:dhcpd /srv/containers/dhcpd-bind9/etc/dhcp
 
     chown -Rv bind:bind \
       /srv/containers/dhcpd-bind9/etc/bind9 \
@@ -135,6 +135,9 @@ value as appropriate.
         hash. You'll use the same hash in `named.conf` to give `dhcpd`
         the privilege of updating DNS records automatically. Don't
         forget to `rm -f Kdhcpupdate*` when you're done.
+    * Set `FIXME_BIND9_CONTAINER_IP` to the IP address of the BIND9
+    container. You can discover that with
+    `docker network dhcpd-bind9_dhcpd-bind9 inspect`.
     * Have a good look through the file to make sure you have updated
     every IP address to suit your environment.
 
@@ -181,8 +184,26 @@ suit your environment.
     to verify you have found all of the customizations you need to make
     in your configuration and zone files. Correct those lines to suit
     your environment.
-1.  As root, execute `docker-compose up -d`.
+1. Copy the systemd service file from the project and reload the
+`systemd` daemon.
+    
+    ```
+    cp -i ./etc/systemd/system/cnt-dhcpd-bind.service \
+      /etc/systemd/system
 
+    systemctl daemon-reload
+    ```
+    The `-i` switch is to force a confirmation question if a file
+    called `10-containers.conf` already exists in that directory. If
+    that is the case, merge the two files as appropriate for your
+    environment.
+1. Enable and start the container set.
+    ```
+    systemctl enable cnt-dhcpd-bind.service
+    systemctl start cnt-dhcpd-bind.service
+
+    systemctl -l status cnt-dhcpd-bind.service
+    ```
 
 
 ## Copyright & License
