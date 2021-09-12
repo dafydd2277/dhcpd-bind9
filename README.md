@@ -193,10 +193,9 @@ suit your environment.
 
     systemctl daemon-reload
     ```
-    The `-i` switch is to force a confirmation question if a file
-    called `10-containers.conf` already exists in that directory. If
-    that is the case, merge the two files as appropriate for your
-    environment.
+    The `-i` switch is to force a confirmation question if a service
+    file already exists in that directory. If that is the case, merge
+    the two files as appropriate for your environment.
 1. Enable and start the container set.
     ```
     systemctl enable cnt-dhcpd-bind.service
