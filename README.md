@@ -106,11 +106,10 @@ containers to fail.
     called `containers` already exists in that directory. If that is
     the case, merge the two files as appropriate for your environment.
 1. Modify `.env` to suit your environment.
-1. Modify `compose.yaml` to suit your environment. Note that you have
-to uncomment the appropriate `ports` entries. If you want to listen to
-more than one interface, but not all interfaces, you can c/p several
-copies of the expanded option, modifying the `${s_host_internal_ip}`
-value as appropriate.
+1. Modify `compose.yaml` to suit your environment. Note that this
+combination of containers must reside on the host network
+(`network_mode: host`) in order to receive and process DHCP client
+broadcasts.
 
 [ref011]: https://centos.org/
 [ref012]: https://docs.docker.com/engine/install/centos/ 
